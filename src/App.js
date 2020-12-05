@@ -1,25 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Waveform from "./Waveform";
+import Button from "./Button";
+
+const SIZE = 256
+const HARMONICS = [3, 5, 7, 9, 11]
+const MAG_MIN = 0.1
+const MAG_MAX = 10.0
+
+function generate(
+  phaseShiftDegrees = 0,
+) {
+  const phaseShiftRadians = phaseShiftDegrees * Math.PI / 180
+
+  let points = Array(SIZE).fill(0).map((n, i) =>
+    120 * Math.sqrt(2) * Math.sin(2 * Math.PI * (i / SIZE) + phaseShiftRadians)
+  )
+
+  HARMONICS.forEach(harmonic =>
+    points.forEach((point, i) =>
+      points[i] += Math.sin(
+        2 * harmonic * rand() * Math.PI * (i / SIZE) + phaseShiftRadians
+      )
+    )
+  )
+
+  return points
+}
+
+function rand() {
+  return MAG_MIN + (Math.random() * (MAG_MAX - MAG_MIN)) * Math.sqrt(2)
+}
+
+const points = [
+  {
+    points: generate()
+  }
+];
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <Waveform points={points} />
+      <Button></Button>
+    </>
+  )
 }
 
 export default App;
