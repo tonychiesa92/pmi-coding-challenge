@@ -3,7 +3,7 @@
 I created a ReactJS web application for this coding challenge and was able to complete:
 
 * I created a button component using Hooks and useState to alternate the text of the button.
-* I created a component to run the generate function to map props.points. To demonstrate I was able to run the generate function, I displaied the points on the screen.
+* I created a component to run the generate function to map props.points. To demonstrate I was able to run the generate function, I displayed the points on the screen.
 * I added a static sample SVG graphic with a <path> element.
 
 
